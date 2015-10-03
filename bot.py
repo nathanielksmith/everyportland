@@ -35,5 +35,4 @@ def tweet(message):
   print("Posting message {}".format(message))
   api.update_status(status=message)
 
-print(portland_word())
-# tweet(portland_word())
+tweet(portland_word())
