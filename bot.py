@@ -2,6 +2,7 @@ import tweepy # for tweeting
 import secrets # shhhh
 import random
 import inflect
+import logging
 
 def random_modifier():
   # open text file
@@ -28,11 +29,18 @@ def portland_word():
   return random_modifier() + ' ' + get_next_chunk()
 
 def tweet(message):
+  logger = logging.getLogger('everyportland')
+  logger.setLevel(logging.DEBUG)
+  fh = logging.FileHandler('portland_tweets.log')
+  fh.setLevel(logging.DEBUG)
+  logger.addHandler(fh)
+  logger.debug('getting ready to tweet')
+
   auth = tweepy.OAuthHandler(secrets.consumer_key, secrets.consumer_secret)
   auth.set_access_token(secrets.access_token, secrets.access_token_secret)
   api = tweepy.API(auth)
   auth.secure = True
-  print("Posting message {}".format(message))
+  logger.debug("Posting message {}".format(message))
   api.update_status(status=message)
 
 tweet(portland_word())
