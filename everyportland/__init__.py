@@ -46,5 +46,8 @@ def tweet(message):
   logger.debug("Posting message {}".format(message))
   api.update_status(status=message)
 
-if __name__ == '__main__':
+def main():
   tweet(portland_word())
+
+if __name__ == '__main__':
+  main()
