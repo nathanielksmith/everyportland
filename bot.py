@@ -31,7 +31,7 @@ def portland_word():
 def tweet(message):
   logger = logging.getLogger('everyportland')
   logger.setLevel(logging.DEBUG)
-  fh = logging.FileHandler('portland_tweets.log')
+  fh = logging.FileHandler('/opt/bots/everyportland/portland_tweets.log')
   fh.setLevel(logging.DEBUG)
   logger.addHandler(fh)
   logger.debug('getting ready to tweet')
@@ -43,4 +43,5 @@ def tweet(message):
   logger.debug("Posting message {}".format(message))
   api.update_status(status=message)
 
-tweet(portland_word())
+if __name__ == '__main__':
+  tweet(portland_word())
