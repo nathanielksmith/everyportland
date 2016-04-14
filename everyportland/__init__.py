@@ -34,7 +34,7 @@ def portland_word():
 def tweet(message):
   logger = logging.getLogger('everyportland')
   logger.setLevel(logging.DEBUG)
-  fh = logging.FileHandler('/opt/bots/everyportland/portland_tweets.log')
+  fh = logging.FileHandler(path.join(PATH, 'portland_tweets.log'))
   fh.setLevel(logging.DEBUG)
   logger.addHandler(fh)
   logger.debug('getting ready to tweet')
