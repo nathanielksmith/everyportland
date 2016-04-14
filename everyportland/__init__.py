@@ -1,18 +1,21 @@
 import tweepy # for tweeting
-import secrets # shhhh
+from .secrets import consumer_secret, consumer_key, access_token, access_token_secret
 import random
 import inflect
 import logging
+import os.path as path
+
+PATH = path.dirname(__file__)
 
 def random_modifier():
   # open text file
-  text_file = open('modifiers.txt', 'r')
+  text_file = open(path.join(PATH, 'modifiers.txt'), 'r')
   text_string = text_file.read()
   return random.choice(text_string.split('\n'))
 
 def get_next_chunk():
   # open text file
-  text_file = open('book.txt', 'r+')
+  text_file = open(path.join(PATH, 'book.txt'), 'r+')
   text_string = text_file.read()
   chunk = text_string.split('\n')[0]
 
@@ -36,8 +39,8 @@ def tweet(message):
   logger.addHandler(fh)
   logger.debug('getting ready to tweet')
 
-  auth = tweepy.OAuthHandler(secrets.consumer_key, secrets.consumer_secret)
-  auth.set_access_token(secrets.access_token, secrets.access_token_secret)
+  auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+  auth.set_access_token(access_token, access_token_secret)
   api = tweepy.API(auth)
   auth.secure = True
   logger.debug("Posting message {}".format(message))
